@@ -6,6 +6,7 @@ defmodule DiscordSheikah.Bot do
     command = msg.content |> String.split |> List.first
 
     case command do
+      "!help"   -> reply "https://github.com/rekyuu/discord-sheikah-slate"
       "!ping"   -> reply "Pong!"
       "!coin"   -> reply Enum.random(["Heads.", "Tails."])
       "!pick"   -> reply random_picker(msg.content)
