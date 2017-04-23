@@ -1,14 +1,26 @@
 defmodule DiscordSheikah.Bot do
-  require Logger
+  use DiscordSheikah.Module
+  import DiscordSheikah.Util
 
-  def start_link(opts \\ []) do
-    HTTPoison.start
-    Logger.warn "Manually started HTTPoison."
+  def handle_event({:MESSAGE_CREATE, {msg}, _ws_state}, state) do
+    command = msg.content |> String.split |> List.first
 
-    Logger.info "Starting bot..."
-    {:ok, _pid} = DiscordEx.Client.start_link(%{
-      token: Application.get_env(:discord_sheikah, :discord_token),
-      handler: DiscordSheikah.Handler
-    })
+    case command do
+      "!ping"   -> reply "Pong!"
+      "!coin"   -> reply Enum.random(["Heads.", "Tails."])
+      "!pick"   -> reply random_picker(msg.content)
+      "!choose" -> reply random_picker(msg.content)
+      "!random" -> reply random_picker(msg.content)
+      "!bingo"  -> reply bingo_builder(msg.content)
+      "!map"    -> reply "http://www.zeldadungeon.net/breath-of-the-wild-interactive-map/"
+      "!guide"  -> reply "https://docs.google.com/spreadsheets/d/1qLOC3ajm6a-vrXvlwAecbhW88iT8vtv9iSvP0jUcwzY/edit?usp=sharing"
+      _ -> :ignore
+    end
+
+    {:ok, state}
+  end
+
+  def handle_event(_, state) do
+    {:ok, state}
   end
 end

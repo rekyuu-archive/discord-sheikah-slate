@@ -4,8 +4,33 @@ defmodule DiscordSheikah.Util do
   def one_to(n), do: Enum.random(1..n) <= 1
   def percent(n), do: Enum.random(1..100) <= n
 
-  def bingo_builder(category, len) do
+  def random_picker(message) do
+    [_ | choices] = message |> String.split
+
+    cond do
+      length(choices) >= 2 ->
+        choices = choices |> Enum.join(" ") |> String.split(", ")
+        Enum.random(choices)
+      true -> ""
+    end
+  end
+
+  def bingo_builder(message) do
     seed = Float.ceil(999999 * :rand.uniform) |> round
+
+    variables = message |> String.split
+
+    {category, len} = case length(variables) do
+      1 -> {"normal", nil}
+      2 ->
+        [_, category] = variables
+        {category, nil}
+      3 ->
+        [_ | cat_n_len] = variables
+        [category, len] = cat_n_len
+        {category, len}
+      _ -> {:error, nil}
+    end
 
     base = case category do
       "short"   -> "http://botw.site11.com/?seed=#{seed}&mode=short"

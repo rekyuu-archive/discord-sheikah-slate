@@ -4,7 +4,7 @@ defmodule DiscordSheikah.Mixfile do
   def project do
     [app: :discord_sheikah,
      version: "0.1.0",
-     elixir: "~> 1.3",
+     elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
@@ -14,7 +14,7 @@ defmodule DiscordSheikah.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:discord_ex, :logger, :httpoison],
+    [applications: [:nostrum, :logger, :httpoison],
      mod: {DiscordSheikah, []}
     ]
   end
@@ -29,6 +29,6 @@ defmodule DiscordSheikah.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:discord_ex, git: "https://github.com/rmcafee/discord_ex", tag: "master"}]
+    [{:nostrum, git: "https://github.com/Kraigie/nostrum.git"}]
   end
 end
