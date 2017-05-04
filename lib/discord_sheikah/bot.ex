@@ -8,10 +8,6 @@ defmodule DiscordSheikah.Bot do
     case command do
       "!help"   -> reply "https://github.com/rekyuu/discord-sheikah-slate"
       "!ping"   -> reply "Pong!"
-      "!coin"   -> reply Enum.random(["Heads.", "Tails."])
-      "!pick"   -> reply random_picker(msg.content)
-      "!choose" -> reply random_picker(msg.content)
-      "!random" -> reply random_picker(msg.content)
       "!bingo"  -> reply bingo_builder(msg.content)
       "!map"    -> reply "http://www.zeldadungeon.net/breath-of-the-wild-interactive-map/"
       "!guide"  -> reply "https://docs.google.com/spreadsheets/d/1qLOC3ajm6a-vrXvlwAecbhW88iT8vtv9iSvP0jUcwzY/edit?usp=sharing"
